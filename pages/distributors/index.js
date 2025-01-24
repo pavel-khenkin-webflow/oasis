@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { DrawSVGPlugin } from 'gsap/all'
 import Swiper from 'swiper'
 import { Autoplay, Controller } from 'swiper/modules'
+import { setupHeaderAnimations } from '../../utils/header'
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin)
 
@@ -30,6 +31,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	const headerMenu = document.querySelector('.header-menu')
 	const headerLinks = headerMenu.querySelectorAll('.header_link')
 	let menuOpen = false
+
+	setupHeaderAnimations()
+
+	// HEADER ANIMATION
+	gsap.to('.header', {
+		backgroundColor: 'rgba(211, 232, 245, 0.8)',
+		duration: 0.4,
+		ease: 'power1',
+		scrollTrigger: {
+			trigger: 'body',
+			start: '100px top',
+			toggleActions: 'play none none reverse',
+		},
+	})
 
 	burger.addEventListener('click', () => {
 		if (menuOpen) {

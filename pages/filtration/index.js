@@ -4,6 +4,7 @@ import Lenis from 'lenis'
 import { DrawSVGPlugin } from 'gsap/all'
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { setupHeaderAnimations } from '../../utils/header'
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin)
 
@@ -27,6 +28,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	const headerMenu = document.querySelector('.header-menu')
 	const headerLinks = headerMenu.querySelectorAll('.header_link')
 	let menuOpen = false
+
+	setupHeaderAnimations()
+
+	// HEADER ANIMATION
+	gsap.to('.header', {
+		backgroundColor: 'rgba(211, 232, 245, 0.8)',
+		duration: 0.4,
+		ease: 'power1',
+		scrollTrigger: {
+			trigger: 'body',
+			start: '100px top',
+			toggleActions: 'play none none reverse',
+		},
+	})
 
 	burger.addEventListener('click', () => {
 		if (menuOpen) {
@@ -85,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		const duration = 10 + (i % 2 === 0 ? 0.2 * i : -0.2 * i)
 
 		// Движение элемента по кругу
-		gsap.to(`.filtration_el.is--0${i + 1}`, {
+		gsap.set(`.filtration_el.is--0${i + 1}`, {
 			motionPath: {
 				path: '.filtration-path',
 				align: '.filtration-path',
@@ -93,16 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				autoRotate: false,
 				start: start,
 				end: end,
-			},
-			duration: 15,
-			ease: 'linear',
-			repeat: -1,
-			yoyo: true,
-			onUpdate: () => {
-				if (scrollTriggers[i]) {
-					scrollTriggers[i].refresh()
-				}
-			},
+			}
 		})
 
 		// Создаём ScrollTrigger для каждого элемента
@@ -135,8 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			onLeaveBack: () => {
 				gsap.to(`.filtration_el.is--0${i + 1}`, {
 					opacity: 1,
-					scale: 1,
+					scale: 1.35,
 					duration: 0.4,
+					ease: 'power1.inOut'
 				})
 			},
 		})
