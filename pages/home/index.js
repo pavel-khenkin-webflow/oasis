@@ -3,8 +3,10 @@ import Lenis from 'lenis'
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
+import { DrawSVGPlugin } from 'gsap/all'
+import { setupHeaderAnimations } from '../../utils/header'
 
-gsap.registerPlugin(ScrollTrigger, SplitText)
+gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin)
 
 document.addEventListener('DOMContentLoaded', function () {
 	// Initialize Lenis
@@ -20,6 +22,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Match media
 	let mm = gsap.matchMedia()
+
+	// Header
+	const burger = document.querySelector('.burger')
+	const headerMenu = document.querySelector('.header-menu')
+	const headerLinks = headerMenu.querySelectorAll('.header_link')
+	let menuOpen = false
+
+	setupHeaderAnimations()
+
+	// HEADER ANIMATION
+	gsap.to('.header', {
+		backgroundColor: 'rgba(211, 232, 245, 0.8)',
+		duration: 0.4,
+		ease: 'power1',
+		scrollTrigger: {
+			trigger: 'body',
+			start: '100px top',
+			toggleActions: 'play none none reverse',
+		},
+	})
+
+	// MENU OPEN/CLOSE
+	burger.addEventListener('click', () => {
+		if (menuOpen) {
+			gsap.to(headerMenu, {
+				opacity: 0,
+				duration: 0.4,
+				ease: 'power1.out',
+				onComplete: function () {
+					headerMenu.style.visibility = 'hidden'
+					document.body.classList.remove('is--lock')
+				},
+			})
+		} else {
+			document.body.classList.add('is--lock')
+			headerMenu.style.visibility = 'visible'
+			gsap.to(headerMenu, {
+				opacity: 1,
+				duration: 0.4,
+				ease: 'power1.out',
+			})
+		}
+		menuOpen = !menuOpen
+	})
+	headerLinks.forEach(link => {
+		if (link) {
+			link.addEventListener('click', function () {
+				burger.click()
+			})
+		}
+	})
 
 	// HERO ---------------------------------------------------------
 	const herorl = gsap.timeline({
@@ -66,6 +119,26 @@ document.addEventListener('DOMContentLoaded', function () {
 		onLeaveBack: () => video.pause(),
 	})
 
+	const aboutIcons = document.querySelectorAll('.about_card-icon-box')
+	aboutIcons.forEach(card => {
+		const path = card.querySelector('circle')
+		gsap.set(path, {
+			drawSVG: '0%',
+		})
+
+		gsap.to(path, {
+			drawSVG: '100%',
+			duration: 2,
+			ease: 'power1.out',
+			scrollTrigger: {
+				trigger: '.about_track',
+				start: 'top center',
+				end: 'bottom center',
+				scrub: true,
+			},
+		})
+	})
+
 	mm.add('(min-width: 768px)', () => {
 		// ABOUT ------------------------------------------------------
 		const pagNums = document.querySelectorAll('.about_pagination-item')
@@ -78,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				trigger: '.about_track',
 				start: 'center center',
 				end: 'bottom center',
+				// markers: true,
 
 				onEnter: () => {
 					aboutTl.add(() => {
@@ -217,19 +291,21 @@ document.addEventListener('DOMContentLoaded', function () {
 		},
 		'<'
 	)
-	ScrollTrigger.create({
-		trigger: '.filtr_content-box',
-		start: 'center center',
-		onEnter: () => {
-			filtrCards.forEach(card => {
-				card.classList.add('is--show')
-			})
-		},
-		onLeaveBack: () => {
-			filtrCards.forEach(card => {
-				card.classList.remove('is--show')
-			})
-		},
+	mm.add('(min-width: 767px)', () => {
+		ScrollTrigger.create({
+			trigger: '.filtr_content-box',
+			start: 'center center',
+			onEnter: () => {
+				filtrCards.forEach(card => {
+					card.classList.add('is--show')
+				})
+			},
+			onLeaveBack: () => {
+				filtrCards.forEach(card => {
+					card.classList.remove('is--show')
+				})
+			},
+		})
 	})
 
 	// FILTERS CARDS -------------------------------
@@ -258,14 +334,26 @@ document.addEventListener('DOMContentLoaded', function () {
 		})
 
 		// Открываем 2-ю и 5-ю карточки при загрузке страницы
-		if (index === 1 || index === 4) {
-			card.classList.add('is--show')
-			gsap.to(cardContent, {
-				height: cardContentHeight,
-				duration: 0.4,
-				ease: 'power1.out',
-			})
-		}
+		mm.add('(min-width: 767px)', () => {
+			if (index === 1 || index === 4) {
+				card.classList.add('is--show')
+				gsap.to(cardContent, {
+					height: cardContentHeight,
+					duration: 0.4,
+					ease: 'power1.out',
+				})
+			}
+		})
+		mm.add('(max-width: 766px)', () => {
+			if (index === 0) {
+				card.classList.add('is--show')
+				gsap.to(cardContent, {
+					height: cardContentHeight,
+					duration: 0.4,
+					ease: 'power1.out',
+				})
+			}
+		})
 	})
 
 	// NATURE
@@ -337,14 +425,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	document.querySelector('.products_tab').click()
 
+	// GET TOUCH
+	const sLinks = document.querySelectorAll('.contact_s-link-box')
+	sLinks.forEach(link => {
+		const path = link.querySelector('circle')
+		gsap.set(path, {
+			drawSVG: '0%',
+		})
+
+		link.addEventListener('mouseenter', function () {
+			gsap.to(path, {
+				drawSVG: '100%',
+				duration: 0.5,
+				ease: 'power1.out',
+			})
+		})
+		link.addEventListener('mouseleave', function () {
+			gsap.to(path, {
+				drawSVG: '0%',
+				duration: 0.5,
+				ease: 'power1.out',
+			})
+		})
+	})
+
 	// MAP ------------------------------------------
-	gsap.from('.map_point', {
+	const mapTl = gsap.timeline({
+		scrollTrigger: {
+			trigger: '.section_map',
+			start: 'top center',
+		},
+	})
+	mapTl.from('.map_point', {
 		scale: 0,
 		duration: 0.4,
 		ease: 'power1.out',
-		scrollTrigger: {
-			trigger: '.section_map',
-			start: 'center center',
-		},
+	})
+	mapTl.from('#about-icon-01', {
+		drawSVG: '0%',
+		duration: 3,
+		ease: 'power1.inOut',
 	})
 })
