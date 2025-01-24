@@ -145,6 +145,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		scrollTriggers.push(scrollTrigger)
 	}
 
+	gsap.to('.filtration_el', {
+		scale: 1.35,
+		duration: 1,
+		repeat: -1,
+		yoyo: true,
+		ease: 'power1.inOut'
+	});
+
 	const natureNums = document.querySelectorAll('.f-nums_card .text-68px')
 
 	natureNums.forEach(numText => {

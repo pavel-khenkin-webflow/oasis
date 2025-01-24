@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						},
 						'<'
 					)
-					aboutTl.to(
+					/*aboutTl.to(
 						aboutBottle,
 						{
 							rotation: 12,
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							ease: 'power1.out',
 						},
 						'<'
-					)
+					)*/
 					aboutTl.add(() => {
 						aboutCard01.style.visibility = 'hidden'
 					})
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						},
 						'<'
 					)
-					aboutTl.to(
+					/*aboutTl.to(
 						aboutBottle,
 						{
 							rotation: 0,
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							ease: 'power1.out',
 						},
 						'<'
-					)
+					)*/
 					aboutTl.add(() => {
 						aboutCard02.style.visibility = 'hidden'
 					})
