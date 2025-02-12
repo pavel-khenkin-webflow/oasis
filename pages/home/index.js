@@ -75,6 +75,25 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	// HERO ---------------------------------------------------------
+	gsap.to('[data-aqua]', {
+		left: '50%',
+		top: '107%',
+		xPercent: -45,
+		yPercent: -50,
+		scrollTrigger: {
+			trigger: '.section_hero-bot',
+			start: '80% bottom',
+			end: 'bottom bottom',
+			scrub: true
+		}
+		});
+	  
+	  
+
+
+
+
+	//
 	const herorl = gsap.timeline({
 		scrollTrigger: {
 			trigger: '.section_hero-top',
