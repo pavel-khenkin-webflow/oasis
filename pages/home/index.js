@@ -88,23 +88,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		  trigger: '.section_hero-top',
 		  start: '2% top', // Начинается в самом верху страницы
 		  end: '2% top', // Заканчивается на высоте 5em
-		  toggleActions: "play none none reverse", // Вниз при выходе, вверх при входе
-		  markers: true
+		  toggleActions: "play none none reverse"
 		}
 	  });
-	  
-	  
-	  
-	  
-	  
-	  
-
-
-
-	  
-	  
-	  
-	  
 	  
 
 	gsap.to('[data-aqua]', {
