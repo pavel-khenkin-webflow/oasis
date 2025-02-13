@@ -75,19 +75,31 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	// HERO ---------------------------------------------------------
+
+	// Мгновенное перемещение вниз/обратно вверх
 	gsap.to('[data-aqua]', {
-		left: '50%',
-		top: '107%',
-		xPercent: -50,
-		yPercent: -50,
+	left: '50%',
+	top: '107%',
+	xPercent: -50,
+	yPercent: -50,
+	scrollTrigger: {
+	trigger: '.section_hero-top',
+	start: '1% top',
+	end: '1% top',
+	scrub: true,
+	}
+	});
+
+	gsap.to('[data-aqua]', {
+		display: 'none',
 		scrollTrigger: {
-			trigger: '.section_hero-bot',
-			start: '80% bottom',
-			end: 'bottom bottom',
-			scrub: true
+		trigger: '.section_hero-bot',
+		start: 'bottom bottom',
+		end: 'bottom bottom',
+		scrub: true,
 		}
 		});
-	
+
 	//
 	const herorl = gsap.timeline({
 		scrollTrigger: {
