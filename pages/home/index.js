@@ -78,17 +78,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Мгновенное перемещение вниз/обратно вверх
 	gsap.to('[data-aqua]', {
-	left: '50%',
-	top: '107%',
-	xPercent: -50,
-	yPercent: -50,
-	scrollTrigger: {
-	trigger: '.section_hero-top',
-	start: '1% top',
-	end: '1% top',
-	scrub: true,
-	}
-	});
+		left: '48%',
+		top: '107%',
+		xPercent: -50,
+		yPercent: -50,
+		duration: 0.6, // Плавность движения
+		ease: "elastic.out(0.25, 0.3)", // Эластичный отскок вниз
+		scrollTrigger: {
+		  trigger: '.section_hero-top',
+		  start: '2% top', // Начинается в самом верху страницы
+		  end: '2% top', // Заканчивается на высоте 5em
+		  toggleActions: "play none none reverse", // Вниз при выходе, вверх при входе
+		  markers: true
+		}
+	  });
+	  
+	  
+	  
+	  
+	  
+	  
+
+
+
+	  
+	  
+	  
+	  
+	  
 
 	gsap.to('[data-aqua]', {
 		display: 'none',
