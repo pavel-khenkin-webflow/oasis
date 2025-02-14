@@ -75,46 +75,40 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	// HERO ---------------------------------------------------------
- 
-	gsap.to('[data-aqua]', {
+	//уход с хедера  
+	gsap.to('[data-aqua]', 
+		{ 
 		left: '48%',
-		top: '100%',
-		xPercent: -50,
-		//yPercent: -50,
-		duration: .65, // Плавность движения
+		bottom: '-40%',
+		duration: .65,
 		ease: "power2.inOut",
-		//ease: "elastic.out(0.4, 0.3)", // Эластичный отскок вниз
 		scrollTrigger: {
 		  trigger: '.section_hero-top',
-		  start: '2% top', // Начинается в самом верху страницы
-		  end: '2% top', // Заканчивается на высоте 5em
+		  start: '1% top', // Начинается в самом верху страницы
+		  end: '1% top', // Заканчивается на высоте 5em
+		  toggleActions: "play none none reverse"
+		}
+	});
+
+	gsap.fromTo('[data-aqua]', 
+		{ 
+		  left: '48%',
+		  bottom: '-40%'
+		},
+		{
+		left: '48%',
+		bottom: '0%',
+		duration: 0.5, // Плавность движения
+		ease: "power3.inOut",
+		immediateRender: false,
+		scrollTrigger: {
+		  trigger: '.section_hero-bot',
+		  start: '35% center', 
+		  end: 'bottom bottom', 
 		  toggleActions: "play none none reverse"
 		}
 	  });
-
-	  gsap.fromTo('[data-aqua]', 
-		{ 
-		  left: '48%',
-		  top: '107%',
-		  xPercent: -50,
-		  yPercent: 0 // Начальная позиция ниже
-		}, 
-		{ 
-		  left: '48%',
-		  top: '107%',
-		  xPercent: -50,
-		  yPercent: -50, // Начальная позиция ниже
-		  duration: 0.5, // Плавность движения
-		  ease: "power3.inOut",
-		  scrollTrigger: {
-			trigger: '.section_hero-bot',
-			start: '40% center', 
-			end: 'bottom bottom', 
-			toggleActions: "play none play reverse"
-		  }
-		}
-	  );
-
+	  	  
 	  gsap.to('[data-aqua]', {
 		scale: 0, // Используем scale вместо transform
 		//duration: .65, // Плавность движения
@@ -135,9 +129,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			scrub: 2,
 		},
 	})
-	herorl.to('.hero_bottle', {
-		y: '-50%',
-	})
+
+	if (document.querySelector('.hero_bottle')) {
+		herorl.to('.hero_bottle', {
+			y: '-50%',
+		})
+	}
 	herorl.to(
 		'.hero_bg-text',
 		{
@@ -158,19 +155,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			scrub: true,
 		},
 	})
-
 	const video = document.querySelector('.fitr_video video')
-
-	ScrollTrigger.create({
-		trigger: '.section_filtr',
-		start: 'top center',
-		end: 'bottom center',
-		onEnter: () => video.play(),
-		onLeave: () => video.pause(),
-		onEnterBack: () => video.play(),
-		onLeaveBack: () => video.pause(),
-	})
-
+	if (document.querySelector('.fitr_video video')) {
+		ScrollTrigger.create({
+			trigger: '.section_filtr',
+			start: 'top center',
+			end: 'bottom center',
+			onEnter: () => video.play(),
+			onLeave: () => video.pause(),
+			onEnterBack: () => video.play(),
+			onLeaveBack: () => video.pause(),
+		})
+	}
 	const aboutIcons = document.querySelectorAll('.about_card-icon-box')
 	aboutIcons.forEach(card => {
 		const path = card.querySelector('circle')
