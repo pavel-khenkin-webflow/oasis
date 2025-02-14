@@ -76,11 +76,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// HERO ---------------------------------------------------------
 	//уход с хедера  
+	gsap.set('[data-aqua]', { left: '64.3em', top: '26em' })
 	gsap.to('[data-aqua]', 
 		{ 
-		left: '48%',
-		bottom: '-40%',
-		duration: .65,
+		left: '30em',
+		top: '110em',
+		duration: .95,
 		ease: "power2.inOut",
 		scrollTrigger: {
 		  trigger: '.section_hero-top',
@@ -90,36 +91,34 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 
-	gsap.fromTo('[data-aqua]', 
-		{ 
-		  left: '48%',
-		  bottom: '-40%'
-		},
+	gsap.set('[data-aqua2]', { left: '48%', bottom: '-100%' })
+	gsap.to('[data-aqua2]', 
 		{
 		left: '48%',
 		bottom: '0%',
-		duration: 0.5, // Плавность движения
+		// duration: 0.5, // Плавность движения
 		ease: "power3.inOut",
 		immediateRender: false,
 		scrollTrigger: {
 		  trigger: '.section_hero-bot',
-		  start: '35% center', 
-		  end: 'bottom bottom', 
+		  start: '85% bottom', 
+		  markers: true,
+		  end: '98% bottom', 
 		  toggleActions: "play none none reverse"
 		}
 	  });
 	  	  
-	  gsap.to('[data-aqua]', {
-		scale: 0, // Используем scale вместо transform
-		//duration: .65, // Плавность движения
-		ease: "power2.inOut",
-		scrollTrigger: {
-		  trigger: '.section_hero-bot',
-		  start: '95% bottom', // Начинается в самом верху страницы
-		  end: 'bottom bottom', // Начинается в самом верху страницы
-		  toggleActions: "play none none reverse"
-		}
-	  });
+		gsap.to('[data-aqua2]', {
+			scale: 0, // Используем scale вместо transform
+			ease: "power2.inOut",
+			scrollTrigger: {
+				trigger: '.section_hero-bot',
+				start: 'bottom bottom', // Точка триггера одна, анимация срабатывает только здесь
+				toggleActions: "play none none reverse",
+				markers: true
+			}
+			});
+	  
 
 	const herorl = gsap.timeline({
 		scrollTrigger: {
