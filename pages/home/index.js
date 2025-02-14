@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		scrollTrigger: {
 		  trigger: '.section_hero-bot',
 		  start: '85% bottom', 
-		  markers: true,
 		  end: '98% bottom', 
 		  toggleActions: "play none none reverse"
 		}
@@ -114,8 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			scrollTrigger: {
 				trigger: '.section_hero-bot',
 				start: 'bottom bottom', // Точка триггера одна, анимация срабатывает только здесь
-				toggleActions: "play none none reverse",
-				markers: true
+				toggleActions: "play none none reverse"
 			}
 			});
 	  
