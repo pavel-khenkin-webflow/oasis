@@ -75,15 +75,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 
 	// HERO ---------------------------------------------------------
-
-	// Мгновенное перемещение вниз/обратно вверх
+ 
 	gsap.to('[data-aqua]', {
 		left: '48%',
-		top: '107%',
+		top: '100%',
 		xPercent: -50,
-		yPercent: -50,
-		duration: 0.6, // Плавность движения
-		ease: "elastic.out(0.25, 0.3)", // Эластичный отскок вниз
+		//yPercent: -50,
+		duration: .65, // Плавность движения
+		ease: "power2.inOut",
+		//ease: "elastic.out(0.4, 0.3)", // Эластичный отскок вниз
 		scrollTrigger: {
 		  trigger: '.section_hero-top',
 		  start: '2% top', // Начинается в самом верху страницы
@@ -91,19 +91,42 @@ document.addEventListener('DOMContentLoaded', function () {
 		  toggleActions: "play none none reverse"
 		}
 	  });
-	  
 
-	gsap.to('[data-aqua]', {
-		display: 'none',
-		scrollTrigger: {
-		trigger: '.section_hero-bot',
-		start: 'bottom bottom',
-		end: 'bottom bottom',
-		scrub: true,
+	  gsap.fromTo('[data-aqua]', 
+		{ 
+		  left: '48%',
+		  top: '107%',
+		  xPercent: -50,
+		  yPercent: 0 // Начальная позиция ниже
+		}, 
+		{ 
+		  left: '48%',
+		  top: '107%',
+		  xPercent: -50,
+		  yPercent: -50, // Начальная позиция ниже
+		  duration: 0.5, // Плавность движения
+		  ease: "power3.inOut",
+		  scrollTrigger: {
+			trigger: '.section_hero-bot',
+			start: '40% center', 
+			end: 'bottom bottom', 
+			toggleActions: "play none play reverse"
+		  }
 		}
-		});
+	  );
 
-	//
+	  gsap.to('[data-aqua]', {
+		scale: 0, // Используем scale вместо transform
+		//duration: .65, // Плавность движения
+		ease: "power2.inOut",
+		scrollTrigger: {
+		  trigger: '.section_hero-bot',
+		  start: '95% bottom', // Начинается в самом верху страницы
+		  end: 'bottom bottom', // Начинается в самом верху страницы
+		  toggleActions: "play none none reverse"
+		}
+	  });
+
 	const herorl = gsap.timeline({
 		scrollTrigger: {
 			trigger: '.section_hero-top',
